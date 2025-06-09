@@ -2,61 +2,37 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
   <title>Essayer – Rword Manar</title>
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css"/>
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">Rword Manar</div>
-      <ul class="nav-links">
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="about.html">À propos</a></li>
-        <li><a href="services.html">Réserver</a></li>
-        <li><a href="translators.html">Traducteurs</a></li>
-        <li><a href="contact.html">Contact</a></li>
-        <li><a href="try.html" class="active">Essayer</a></li>
-      </ul>
-    </nav>
-  </header>
-
+  <header>…</header>
   <main>
     <section class="features">
-      <h1>🎯 Essayez notre service gratuitement</h1>
-      <p>Traduisez un court texte pour découvrir la qualité de notre plateforme.</p>
-
+      <h1>🎯 Essayez notre service</h1>
       <form id="try-form">
-        <label for="from">Langue source :</label>
+        <label>Source :</label>
         <select id="from">
           <option value="fr">Français</option>
           <option value="en">Anglais</option>
           <option value="ar">Arabe</option>
         </select>
-
-        <label for="to">Langue cible :</label>
+        <label>Cible :</label>
         <select id="to">
           <option value="en">Anglais</option>
           <option value="fr">Français</option>
           <option value="ar">Arabe</option>
         </select>
-
-        <label for="input-text">Texte à traduire :</label>
-        <textarea id="input-text" maxlength="300" rows="4" placeholder="Entrez votre texte ici..."></textarea>
-
-        <p><small>Max 300 caractères</small></p>
+        <label>Texte (max 300) :</label>
+        <textarea id="input-text" maxlength="300" rows="4"></textarea>
         <button type="submit" class="btn">Traduire</button>
       </form>
-
-      <div id="translation-output" style="margin-top: 2rem;"></div>
+      <div id="translation-output"></div>
     </section>
   </main>
+  <footer>…</footer>
 
-  <footer>
-    <p>&copy; 2025 Rword Manar. Tous droits réservés.</p>
-  </footer>
-
-  <!-- ✅ SCRIPT INTÉGRÉ ET FONCTIONNEL -->
   <script>
     document.getElementById('try-form').addEventListener('submit', async function(e) {
       e.preventDefault();
@@ -66,7 +42,7 @@
       const output = document.getElementById('translation-output');
 
       if (!input) {
-        output.innerHTML = "<p style='color:red;'>Veuillez entrer un texte à traduire.</p>";
+        output.innerHTML = "<p style='color:red;'>Veuillez entrer un texte.</p>";
         return;
       }
 
@@ -83,19 +59,17 @@
             format: "text"
           })
         });
-
-        if (!res.ok) throw new Error("Erreur API " + res.status);
-
+        if (!res.ok) throw new Error("API error " + res.status);
         const data = await res.json();
         output.innerHTML = `
-          <h3>Traduction (${from.toUpperCase()} → ${to.toUpperCase()}) :</h3>
+          <h3>Résultat (${from.toUpperCase()}→${to.toUpperCase()}) :</h3>
           <p style="background:#e3f2fd;padding:1rem;border-radius:5px;">
             ${data.translatedText}
           </p>
-          <p><a href="services.html" class="btn">Réservez une vraie session</a></p>`;
+          <p><a href="services.html" class="btn">Réservez maintenant</a></p>`;
       } catch (err) {
-        console.error("Erreur traduction :", err);
-        output.innerHTML = "<p style='color:red;'>Une erreur est survenue. Veuillez réessayer.</p>";
+        console.error("Erreur traduction:", err);
+        output.innerHTML = "<p style='color:red;'>Erreur lors de la traduction. Réessayez s’il te plaît.</p>";
       }
     });
   </script>
